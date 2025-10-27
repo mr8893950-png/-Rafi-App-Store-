@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rafi App Store </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {font-family:'Segoe UI','Nirmala UI',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);margin:0;padding:0;color:#333;}
+    header {text-align:center;padding:25px;color:white;}
+    header h1{margin:0;font-size:2rem;}
+    .container{max-width:900px;margin:20px auto;padding:0 15px;}
+    .app-card{background:white;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,0.1);padding:20px;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;}
+    .app-info{flex:1;min-width:250px;}
+    .app-info h2{margin:0;font-size:1.3rem;}
+    .download-btn{background:#667eea;color:white;padding:10px 20px;border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:5px;}
+    .download-btn:hover{background:#764ba2;}
+    footer{text-align:center;color:white;padding:10px;background:rgba(0,0,0,0.2);}
+    @media(max-width:600px){.app-card{flex-direction:column;align-items:flex-start;}.download-btn{width:100%;justify-content:center;margin-top:10px;}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📱 Rafi App Store  </h1>
+    <p>Free App please download </p>
+  </header>
+
+  <div class="container" id="appList">
+    <!-- Apps will appear here -->
+  </div>
+
+  <footer>© 2025 App store   All Rights Reserved</footer>
+
+  <script>
+    const appList = document.getElementById("appList");
+    const apps = JSON.parse(localStorage.getItem("rafiApps") || "[]");
+
+    function renderApps() {
+      if(apps.length === 0){
+        appList.innerHTML = `<p style="text-align:center;color:white;">এখনও কোনো অ্যাপ যুক্ত করা হয়নি।</p>`;
+        return;
+      }
+      appList.innerHTML = apps.map(app => `
+        <div class="app-card">
+          <div class="app-info">
+            <h2>${app.name}</h2>
+            <p>${app.description}</p>
+          </div>
+          <a href="${app.link}" target="_blank" class="download-btn">
+            <i class="fas fa-download"></i> Download
+          </a>
+        </div>
+      `).join('');
+    }
+
+    renderApps();
+  </script>
+</body>
+</html>
